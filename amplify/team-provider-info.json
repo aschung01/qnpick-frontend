@@ -1,0 +1,38 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-qnpick-dev-180601-authRole",
+      "UnauthRoleArn": "arn:aws:iam::080392101383:role/amplify-qnpick-dev-180601-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::080392101383:role/amplify-qnpick-dev-180601-authRole",
+      "Region": "ap-northeast-2",
+      "DeploymentBucketName": "amplify-qnpick-dev-180601-deployment",
+      "UnauthRoleName": "amplify-qnpick-dev-180601-unauthRole",
+      "StackName": "amplify-qnpick-dev-180601",
+      "StackId": "arn:aws:cloudformation:ap-northeast-2:080392101383:stack/amplify-qnpick-dev-180601/2f4d1370-0354-11ed-a086-06618963ea44",
+      "AmplifyAppId": "d3p8tc3irl79z9"
+    },
+    "categories": {
+      "auth": {
+        "qnpick70873c7a": {
+          "userPoolId": "ap-northeast-2_FHkKRu1Gm",
+          "userPoolName": "qnpick_user_pool",
+          "webClientId": "d101ph15dc5ji69i165efm58q",
+          "nativeClientId": "d101ph15dc5ji69i165efm58q",
+          "identityPoolId": "ap-northeast-2:3dbd9d28-851f-45c2-9e43-3adbddd4d51c",
+          "identityPoolName": "qnpick_identity",
+          "allowUnauthenticatedIdentities": true,
+          "authRoleArn": "arn:aws:iam::080392101383:role/Cognito_qnpick_identityAuth_Role",
+          "authRoleName": "Cognito_qnpick_identityAuth_Role",
+          "unauthRoleArn": "arn:aws:iam::080392101383:role/Cognito_qnpick_identityUnauth_Role",
+          "unauthRoleName": "Cognito_qnpick_identityUnauth_Role"
+        }
+      },
+      "function": {
+        "kakaoLogin": {
+          "deploymentBucketName": "amplify-qnpick-dev-180601-deployment",
+          "s3Key": "amplify-builds/kakaoLogin-554657324d626b514764-build.zip"
+        }
+      }
+    }
+  }
+}

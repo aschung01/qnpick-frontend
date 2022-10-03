@@ -21,28 +21,58 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return title == null
         ? AppBar(
-            leading: IconButton(
-              icon: icon ??
-                  const Icon(Icons.arrow_back_rounded, color: darkPrimaryColor),
-              onPressed: onPressed,
-              splashRadius: 25,
+            leadingWidth: 70,
+            leading: Padding(
+              padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+              child: InkWell(
+                borderRadius: BorderRadius.circular(10),
+                onTap: onPressed,
+                child: Row(
+                  children: const [
+                    Icon(Icons.arrow_back_ios_new_rounded,
+                        color: darkPrimaryColor),
+                    Text(
+                      '뒤로',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: darkPrimaryColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
             elevation: 0,
             backgroundColor: color,
             actions: actions,
           )
         : AppBar(
-            leading: IconButton(
-              splashRadius: 25,
-              icon: icon ??
-                  const Icon(Icons.arrow_back_rounded, color: darkPrimaryColor),
-              onPressed: onPressed,
+            leadingWidth: 70,
+            leading: Padding(
+              padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+              child: InkWell(
+                borderRadius: BorderRadius.circular(10),
+                onTap: onPressed,
+                child: Row(
+                  children: const [
+                    Icon(Icons.arrow_back_ios_new_rounded,
+                        color: darkPrimaryColor),
+                    Text(
+                      '뒤로',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: darkPrimaryColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
             title: Text(
               title!,
               style: const TextStyle(
                 color: darkPrimaryColor,
-                fontSize: 18,
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
             ),

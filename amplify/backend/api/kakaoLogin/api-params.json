@@ -1,0 +1,35 @@
+{
+  "paths": [
+    {
+      "name": "/user/login",
+      "lambdaFunction": "kakaoLogin",
+      "privacy": {
+        "open": true
+      },
+      "policyResourceName": "/user/login"
+    }
+  ],
+  "resourceName": "kakaoLogin",
+  "apiName": "kakaoLogin",
+  "functionArns": [
+    {
+      "lambdaFunction": "kakaoLogin"
+    }
+  ],
+  "privacy": {
+    "auth": 0,
+    "unauth": 0,
+    "authRoleName": "amplify-qnpick-dev-180601-authRole",
+    "unAuthRoleName": "amplify-qnpick-dev-180601-unauthRole"
+  },
+  "dependsOn": [
+    {
+      "category": "function",
+      "resourceName": "kakaoLogin",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    }
+  ]
+}

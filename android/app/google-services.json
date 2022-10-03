@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "670230587842",
+    "project_id": "qnpick-356212",
+    "storage_bucket": "qnpick-356212.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:670230587842:android:5b073f94c527cb0f364e5b",
+        "android_client_info": {
+          "package_name": "com.yunje.qnpick"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "670230587842-alk7miah70tq4kdke2rg7gr6nfv05uh2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUAwK2hNAbydgvD-36jYzFEiAP8_eDPps"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "670230587842-alk7miah70tq4kdke2rg7gr6nfv05uh2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "670230587842-21dj3fp96ff0kjsct6sqg0oomtr6cs31.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.yunje.qnpick"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

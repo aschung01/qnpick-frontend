@@ -3,10 +3,11 @@ import 'package:get/get.dart';
 import 'package:qnpick/constants/constants.dart';
 
 class HomeNavigationController extends GetxController {
-  static HomeNavigationController to = HomeNavigationController();
+  static HomeNavigationController to = Get.find<HomeNavigationController>();
   DateTime timeStamp = DateTime.now();
   Duration timeGap = Duration.zero;
   int currentIndex = 0;
+  bool rebuild = false;
 
   void onIconTap(int index) {
     currentIndex = index;
@@ -44,11 +45,6 @@ class HomeNavigationController extends GetxController {
 
   void updateTimeGap() {
     timeGap = DateTime.now().difference(timeStamp);
-    update();
-  }
-
-  void reset() {
-    currentIndex = 2;
     update();
   }
 }

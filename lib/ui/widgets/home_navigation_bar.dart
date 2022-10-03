@@ -28,10 +28,14 @@ class HomeNavigationBar extends StatelessWidget {
           text = '홈';
           break;
         case 1:
+          icon = LocationIcon(colored: currentIndex == index);
+          text = '지도';
+          break;
+        case 2:
           icon = PointIcon(colored: currentIndex == index);
           text = '포인트';
           break;
-        case 2:
+        case 3:
           icon = ProfileIcon(colored: currentIndex == index);
           text = '프로필';
           break;
@@ -39,11 +43,11 @@ class HomeNavigationBar extends StatelessWidget {
           break;
       }
       return SizedBox(
-        width: (context.width - 20) / 3,
+        width: (context.width - 20) / 4,
         // width: 60,
         height: 60,
         child: IconButton(
-          splashRadius: 85,
+          splashRadius: 65,
           padding: EdgeInsets.zero,
           onPressed: () => onIconTap(index),
           icon: Column(
@@ -83,7 +87,7 @@ class HomeNavigationBar extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: List.generate(
-              3,
+              4,
               (index) => _getNavigationBarItem(index),
             ),
           ),

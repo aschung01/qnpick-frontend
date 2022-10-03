@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qnpick/constants/constants.dart';
 import 'package:qnpick/core/controllers/home_navigation_controller.dart';
-import 'package:qnpick/core/controllers/profile_controller.dart';
-import 'package:qnpick/core/controllers/search_controller.dart';
-import 'package:qnpick/core/controllers/settings_controller.dart';
-import 'package:qnpick/ui/pages/main_home_page.dart';
+import 'package:qnpick/ui/pages/add_question_map_page.dart';
+import 'package:qnpick/ui/pages/community/main_home_page.dart';
 import 'package:qnpick/ui/pages/point_page.dart';
 import 'package:qnpick/ui/pages/profile_page.dart';
 import 'package:qnpick/ui/widgets/home_navigation_bar.dart';
@@ -13,31 +11,41 @@ import 'package:qnpick/ui/widgets/home_navigation_bar.dart';
 class HomeNavigationView extends GetView<HomeNavigationController> {
   const HomeNavigationView({Key? key}) : super(key: key);
 
+  void rebuildAllChildren(BuildContext context) {
+    print('rebuild');
+    void rebuild(Element el) {
+      el.markNeedsBuild();
+      el.visitChildren(rebuild);
+    }
+
+    (context as Element).visitChildren(rebuild);
+    HomeNavigationController.to.rebuild = false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    Get.put<SearchController>(SearchController());
-    Get.put<ProfileController>(ProfileController());
-    Get.put<SettingsController>(SettingsController());
-
     final List<Widget> _pages = [
       const MainHomePage(),
+      const AddQuestionMapPage(),
       const PointPage(),
       const ProfilePage(),
     ];
 
-    Future<bool> _onBackPressed() async {
-      return await controller.onBackPressed();
-    }
-
     return GetBuilder<HomeNavigationController>(
       builder: (_) {
+        if (_.rebuild) {
+          Future.delayed(Duration.zero, () {
+            rebuildAllChildren(context);
+          });
+        }
+
         return WillPopScope(
-          onWillPop: _onBackPressed,
+          onWillPop: controller.onBackPressed,
           child: Scaffold(
             backgroundColor: () {
               if (_.currentIndex == 0) {
                 return darkPrimaryColor;
-              } else if (_.currentIndex == 2) {
+              } else if (_.currentIndex == 3) {
                 return brightPrimaryColor;
               } else {
                 return Colors.white;
