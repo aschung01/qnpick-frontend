@@ -386,13 +386,11 @@ class QuestionPage extends GetView<CommunityController> {
                                 children: [
                                   TextSpan(
                                     text: () {
-                                      if (_.questionData['type'] == 0) {
-                                        if (_.questionCountData['closed'] ==
-                                            true) {
-                                          return ' • 마감됨';
-                                        } else {
-                                          return ' • 진행률 ${formatPercentage(_.questionCountData['progress'])}${_.questionData['due_date'] != null ? ' • ${formatDateTimeRawString(_.questionData['due_date'])} 마감' : ''}';
-                                        }
+                                      if (_.questionCountData['closed'] ==
+                                          true) {
+                                        return ' • 마감됨';
+                                      } else if (_.questionData['type'] == 0) {
+                                        return ' • 진행률 ${formatPercentage(_.questionCountData['progress'])}${_.questionData['due_date'] != null ? ' • ${formatDateTimeRawString(_.questionData['due_date'])} 마감' : ''}';
                                       }
                                     }(),
                                     style: const TextStyle(

@@ -8,8 +8,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 Dio customDio() {
   var dioOptions = BaseOptions(
     baseUrl: endPointUrl,
-    connectTimeout: 50000,
-    receiveTimeout: 50000,
+    connectTimeout: 500000,
+    receiveTimeout: 500000,
   );
   Dio dio = Dio(dioOptions);
   dio.interceptors.add(
@@ -22,8 +22,8 @@ Dio customDio() {
 Dio customDioWithoutToken() {
   var dioOptions = BaseOptions(
     baseUrl: endPointUrl,
-    connectTimeout: 10000,
-    receiveTimeout: 8000,
+    connectTimeout: 500000,
+    receiveTimeout: 500000,
   );
   Dio dio = Dio(dioOptions);
 

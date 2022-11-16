@@ -48,185 +48,188 @@ class SettingsPage extends GetView<SettingsController> {
 
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            Header(
-              onPressed: _onBackPressed,
-              title: '설정',
-            ),
-            const _SettingsLabelItem(labelText: '계정'),
-            _SettingsMenuItem(
-              labelText: '닉네임',
-              onTap: null,
-              trailing: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GetX<AuthController>(
-                    builder: (_) {
-                      Future.delayed(Duration.zero, () async {
-                        await _.getUserInfoIfEmpty();
-                      });
-                      if (_.userInfo.isNotEmpty) {
-                        return Text(_.userInfo['username']);
-                      } else {
-                        return const SizedBox.shrink();
-                      }
-                    },
-                  ),
-                  IconButton(
-                    onPressed: _onUpdateUsernamePressed,
-                    splashRadius: 20,
-                    padding: const EdgeInsets.only(left: 5, right: 5),
-                    icon: const Icon(
-                      Icons.edit_rounded,
-                      color: lightGrayColor,
-                      size: 19,
+        child: SingleChildScrollView(
+          physics: const ClampingScrollPhysics(),
+          child: Column(
+            children: [
+              Header(
+                onPressed: _onBackPressed,
+                title: '설정',
+              ),
+              const _SettingsLabelItem(labelText: '계정'),
+              _SettingsMenuItem(
+                labelText: '닉네임',
+                onTap: null,
+                trailing: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GetX<AuthController>(
+                      builder: (_) {
+                        Future.delayed(Duration.zero, () async {
+                          await _.getUserInfoIfEmpty();
+                        });
+                        if (_.userInfo.isNotEmpty) {
+                          return Text(_.userInfo['username']);
+                        } else {
+                          return const SizedBox.shrink();
+                        }
+                      },
                     ),
-                  ),
-                ],
-              ),
-            ),
-            _SettingsMenuItem(
-              labelText: '이메일',
-              trailing: Row(
-                children: [
-                  () {
-                    switch (AuthController.to.userInfo['auth_provider']) {
-                      case 0:
-                        return const GoogleIcon(
-                          width: 18,
-                          height: 18,
-                        );
-                      case 1:
-                        return const KakaoIcon(
-                          width: 18,
-                          height: 18,
-                        );
-                      case 2:
-                        return const AppleBlackIcon(
-                          height: 50,
-                        );
-                      default:
-                        return const SizedBox.shrink();
-                    }
-                  }(),
-                  const SizedBox(width: 10),
-                  Text(
-                    AuthController.to.userInfo['email'] ?? '',
-                  ),
-                ],
-              ),
-            ),
-            _SettingsMenuItem(
-              labelText: '푸시 알림 설정',
-              trailing: GetX<SettingsController>(
-                builder: (_) {
-                  return Switch(
-                    value: _.userNotiReception.value,
-                    onChanged: (val) {
-                      _.userNotiReception.value = val;
-                    },
-                    activeColor: softBlueColor,
-                    inactiveTrackColor: lightGrayColor,
-                  );
-                },
-              ),
-            ),
-            _SettingsMenuItem(
-              labelText: '관심 카테고리',
-              trailing: IconButton(
-                onPressed: _onUpdateInterestCategoriesPressed,
-                splashRadius: 20,
-                padding: const EdgeInsets.only(left: 5, right: 5),
-                icon: const Icon(
-                  Icons.edit_rounded,
-                  color: lightGrayColor,
-                  size: 19,
-                ),
-              ),
-            ),
-            if (AuthController.to.userInfo['interest_categories'] != null
-                ? AuthController.to.userInfo['interest_categories'].isNotEmpty
-                : false)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: GetX<AuthController>(builder: (_) {
-                  return Align(
-                    alignment: Alignment.centerLeft,
-                    child: SizedBox(
-                      height: 40,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: ListView.separated(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          padding: const EdgeInsets.only(left: 20),
-                          physics: const ClampingScrollPhysics(),
-                          itemBuilder: (context, index) => Chip(
-                            backgroundColor: backgroundColor,
-                            label: Text(
-                              questionCategoryIntToStr[
-                                  _.userInfo['interest_categories'][index]]!,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: darkPrimaryColor,
-                              ),
-                            ),
-                          ),
-                          separatorBuilder: ((context, index) =>
-                              const SizedBox(width: 6)),
-                          itemCount: _.userInfo['interest_categories'] != null
-                              ? _.userInfo['interest_categories'].length
-                              : 0,
-                        ),
+                    IconButton(
+                      onPressed: _onUpdateUsernamePressed,
+                      splashRadius: 20,
+                      padding: const EdgeInsets.only(left: 5, right: 5),
+                      icon: const Icon(
+                        Icons.edit_rounded,
+                        color: lightGrayColor,
+                        size: 19,
                       ),
                     ),
-                  );
-                }),
+                  ],
+                ),
               ),
-            const SizedBox(height: 12),
-            const _SettingsLabelItem(labelText: '정보'),
-            _SettingsMenuItem(
-              labelText: '이용약관',
-              onTap: () {
-                UrlLauncher.launchInApp(termsOfUseUrl);
-              },
-            ),
-            _SettingsMenuItem(
-              labelText: '개인정보처리방침',
-              onTap: () {
-                UrlLauncher.launchInApp(privacyPolicyUrl);
-              },
-            ),
-            _SettingsMenuItem(
-              labelText: '문의하기',
-              onTap: () {
-                controller.emailController.clear();
-                getSendEmailBottomSheet(
-                  controller: controller.emailController,
-                  onSendPressed: _onSendEmailPressed,
-                );
-              },
-            ),
-            _SettingsMenuItem(
-              labelText: '앱 버전',
-              trailing: GetBuilder<SettingsController>(
-                builder: (_) {
-                  return Text(
-                    _.appVersion + '+' + _.buildNumber,
+              _SettingsMenuItem(
+                labelText: '이메일',
+                trailing: Row(
+                  children: [
+                    () {
+                      switch (AuthController.to.userInfo['auth_provider']) {
+                        case 0:
+                          return const GoogleIcon(
+                            width: 18,
+                            height: 18,
+                          );
+                        case 1:
+                          return const KakaoIcon(
+                            width: 18,
+                            height: 18,
+                          );
+                        case 2:
+                          return const AppleBlackIcon(
+                            height: 50,
+                          );
+                        default:
+                          return const SizedBox.shrink();
+                      }
+                    }(),
+                    const SizedBox(width: 10),
+                    Text(
+                      AuthController.to.userInfo['email'] ?? '',
+                    ),
+                  ],
+                ),
+              ),
+              _SettingsMenuItem(
+                labelText: '푸시 알림 설정',
+                trailing: GetX<SettingsController>(
+                  builder: (_) {
+                    return Switch(
+                      value: _.userNotiReception.value,
+                      onChanged: (val) {
+                        _.userNotiReception.value = val;
+                      },
+                      activeColor: softBlueColor,
+                      inactiveTrackColor: lightGrayColor,
+                    );
+                  },
+                ),
+              ),
+              _SettingsMenuItem(
+                labelText: '관심 카테고리',
+                trailing: IconButton(
+                  onPressed: _onUpdateInterestCategoriesPressed,
+                  splashRadius: 20,
+                  padding: const EdgeInsets.only(left: 5, right: 5),
+                  icon: const Icon(
+                    Icons.edit_rounded,
+                    color: lightGrayColor,
+                    size: 19,
+                  ),
+                ),
+              ),
+              if (AuthController.to.userInfo['interest_categories'] != null
+                  ? AuthController.to.userInfo['interest_categories'].isNotEmpty
+                  : false)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: GetX<AuthController>(builder: (_) {
+                    return Align(
+                      alignment: Alignment.centerLeft,
+                      child: SizedBox(
+                        height: 40,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: ListView.separated(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            padding: const EdgeInsets.only(left: 20),
+                            physics: const ClampingScrollPhysics(),
+                            itemBuilder: (context, index) => Chip(
+                              backgroundColor: backgroundColor,
+                              label: Text(
+                                questionCategoryIntToStr[
+                                    _.userInfo['interest_categories'][index]]!,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: darkPrimaryColor,
+                                ),
+                              ),
+                            ),
+                            separatorBuilder: ((context, index) =>
+                                const SizedBox(width: 6)),
+                            itemCount: _.userInfo['interest_categories'] != null
+                                ? _.userInfo['interest_categories'].length
+                                : 0,
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+                ),
+              const SizedBox(height: 12),
+              const _SettingsLabelItem(labelText: '정보'),
+              _SettingsMenuItem(
+                labelText: '이용약관',
+                onTap: () {
+                  UrlLauncher.launchInApp(termsOfUseUrl);
+                },
+              ),
+              _SettingsMenuItem(
+                labelText: '개인정보처리방침',
+                onTap: () {
+                  UrlLauncher.launchInApp(privacyPolicyUrl);
+                },
+              ),
+              _SettingsMenuItem(
+                labelText: '문의하기',
+                onTap: () {
+                  controller.emailController.clear();
+                  getSendEmailBottomSheet(
+                    controller: controller.emailController,
+                    onSendPressed: _onSendEmailPressed,
                   );
                 },
               ),
-            ),
-            _SettingsMenuItem(
-              labelText: '로그아웃',
-              onTap: () => controller.signOut(),
-            ),
-            _SettingsMenuItem(
-              labelText: '회원탈퇴',
-              onTap: _onDeleteAccountPressed,
-            ),
-          ],
+              _SettingsMenuItem(
+                labelText: '앱 버전',
+                trailing: GetBuilder<SettingsController>(
+                  builder: (_) {
+                    return Text(
+                      _.appVersion + '+' + _.buildNumber,
+                    );
+                  },
+                ),
+              ),
+              _SettingsMenuItem(
+                labelText: '로그아웃',
+                onTap: () => controller.signOut(),
+              ),
+              _SettingsMenuItem(
+                labelText: '회원탈퇴',
+                onTap: _onDeleteAccountPressed,
+              ),
+            ],
+          ),
         ),
       ),
     );

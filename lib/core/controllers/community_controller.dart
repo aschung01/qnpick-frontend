@@ -370,6 +370,7 @@ class CommunityController extends GetxController {
         EasyLoading.showSuccess("답변이 업로드되었습니다");
         EasyLoading.dismiss();
         commentTextController.clear();
+        removeCommentMediaFile();
       } else {
         EasyLoading.showError("답변을 업로드하지 못했습니다\n잠시 후 다시 시도해주세요");
         EasyLoading.dismiss();
@@ -448,6 +449,7 @@ class CommunityController extends GetxController {
         EasyLoading.showSuccess("답변이 수정되었습니다");
         EasyLoading.dismiss();
         commentTextController.clear();
+        removeCommentMediaFile();
       } else {
         EasyLoading.showError("오류가 발생했습니다\n잠시 후 다시 시도해주세요");
         EasyLoading.dismiss();

@@ -36,7 +36,7 @@ class MainHomeController extends GetxController {
     searchFilter.listen(onSearchFilterChanged);
     seeClosed.listen(onSeeClosedChanged);
     if (await storage.read(key: 'initial') != 'false') {
-      Future.delayed(Duration.zero, () {
+      Future.delayed(const Duration(seconds: 2), () {
         Get.dialog(
           const InitialHelpPage(),
           useSafeArea: false,

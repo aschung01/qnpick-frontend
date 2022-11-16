@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // Server
-// const String endPointUrl = 'http://dc5c-221-139-39-186.ngrok.io';
+// const String endPointUrl = 'https://3920-221-139-39-186.ngrok.io';
 const String endPointUrl =
     'http://ec2-3-37-88-123.ap-northeast-2.compute.amazonaws.com';
 

@@ -74,7 +74,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Server should stay in sync with user's current location for location-specific question content</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Uses photo library for app content</string>
+	<string>Access photo library for attaching photos when generating community content</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>

@@ -29,13 +29,10 @@ class ProfilePage extends GetView<ProfileController> {
       () async {
         if (AuthController.to.isAuthenticated.value) {
           await AuthController.to.getUserInfoIfEmpty();
-          if (controller.initialLoading.isTrue) {
-            controller.userCreatedQuestions.clear();
-            controller.userAnsweredQuestions.clear();
-            await controller.getUserCreatedQuestions();
-            await controller.getUserAnsweredQuestions();
-            controller.initialLoading.value = false;
-          }
+          controller.userCreatedQuestions.clear();
+          controller.userAnsweredQuestions.clear();
+          await controller.getUserCreatedQuestions();
+          await controller.getUserAnsweredQuestions();
         }
       },
     );

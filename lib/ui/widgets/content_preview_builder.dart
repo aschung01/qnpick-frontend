@@ -106,15 +106,13 @@ class ContentPreviewBuilder extends StatelessWidget {
                         ),
                         Text(
                           () {
-                            if (questionData['type'] == 0) {
-                              if (count['closed'] == true) {
-                                return '마감됨';
-                              } else {
-                                return questionData['due_date'] != null
-                                    ? '마감 ${formatCurrentDDay(DateTime.parse(questionData['due_date']))}'
-                                    : '진행률 ' +
-                                        formatPercentage(count['progress']);
-                              }
+                            if (count['closed'] == true) {
+                              return '마감됨';
+                            } else if (questionData['type'] == 0) {
+                              return questionData['due_date'] != null
+                                  ? '마감 ${formatCurrentDDay(DateTime.parse(questionData['due_date']))}'
+                                  : '진행률 ' +
+                                      formatPercentage(count['progress']);
                             } else {
                               return '';
                             }
@@ -342,15 +340,13 @@ class MediaMiniContentPreviewBuilder extends StatelessWidget {
                         ),
                         Text(
                           () {
-                            if (questionData['type'] == 0) {
-                              if (count['closed'] == true) {
-                                return '마감됨';
-                              } else {
-                                return questionData['due_date'] != null
-                                    ? '마감 ${formatCurrentDDay(DateTime.parse(questionData['due_date']))}'
-                                    : '진행률 ' +
-                                        formatPercentage(count['progress']);
-                              }
+                            if (count['closed'] == true) {
+                              return '마감됨';
+                            } else if (questionData['type'] == 0) {
+                              return questionData['due_date'] != null
+                                  ? '마감 ${formatCurrentDDay(DateTime.parse(questionData['due_date']))}'
+                                  : '진행률 ' +
+                                      formatPercentage(count['progress']);
                             } else {
                               return '';
                             }
@@ -435,14 +431,12 @@ class HomeTextPreviewBuilder extends StatelessWidget {
                   children: [
                     Text(
                       () {
-                        if (questionData['type'] == 0) {
-                          if (count['closed'] == true) {
-                            return '마감됨';
-                          } else {
-                            return questionData['due_date'] != null
-                                ? '마감 ${formatCurrentDDay(DateTime.parse(questionData['due_date']))}'
-                                : '진행률 ' + formatPercentage(count['progress']);
-                          }
+                        if (count['closed'] == true) {
+                          return '마감됨';
+                        } else if (questionData['type'] == 0) {
+                          return questionData['due_date'] != null
+                              ? '마감 ${formatCurrentDDay(DateTime.parse(questionData['due_date']))}'
+                              : '진행률 ' + formatPercentage(count['progress']);
                         } else {
                           return '';
                         }
@@ -553,15 +547,13 @@ class HomeMediaPreviewBuilder extends StatelessWidget {
                           ),
                           Text(
                             () {
-                              if (questionData['type'] == 0) {
-                                if (count['closed'] == true) {
-                                  return '마감됨';
-                                } else {
-                                  return questionData['due_date'] != null
-                                      ? '마감 ${formatCurrentDDay(DateTime.parse(questionData['due_date']))}'
-                                      : '진행률 ' +
-                                          formatPercentage(count['progress']);
-                                }
+                              if (count['closed'] == true) {
+                                return '마감됨';
+                              } else if (questionData['type'] == 0) {
+                                return questionData['due_date'] != null
+                                    ? '마감 ${formatCurrentDDay(DateTime.parse(questionData['due_date']))}'
+                                    : '진행률 ' +
+                                        formatPercentage(count['progress']);
                               } else {
                                 return '';
                               }

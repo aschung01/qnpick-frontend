@@ -15,8 +15,8 @@ import 'package:qnpick/ui/widgets/custom_snackbar.dart';
 // const String unitId = 'ca-app-pub-4190097104200746/2910913141';
 String unitId = kReleaseMode
     ? (GetPlatform.isAndroid
-        ? 'ca-app-pub-4190097104200746/2910913141'
-        : 'ca-app-pub-4190097104200746/3114858437')
+        ? 'ca-app-pub-4190097104200746/6151058614'
+        : 'ca-app-pub-4190097104200746/1204432811')
     : 'ca-app-pub-3940256099942544/5224354917';
 
 const int _maxFailedLoadAttempts = 3;
@@ -89,6 +89,9 @@ class StoreController extends GetxController {
 
   Future<bool> showRewardedAd() async {
     if (rewardedAd == null) {
+      _numRewardedLoadAttempts = 0;
+      await _createRewardedAd();
+      showRewardedAd();
       print('Warning: attempt to show rewarded before loaded.');
       return true;
     }
@@ -122,7 +125,7 @@ class StoreController extends GetxController {
         success = await StoreApiService.postAdReward(50);
       }
       if (success) {
-        await StoreApiService.getPointStatus();
+        await getPointStatus();
         Get.showSnackbar(PointSnackbar(
           text: "+ 50 QP",
         ));
@@ -143,10 +146,47 @@ class StoreController extends GetxController {
         } else if (purchaseDetails.status == PurchaseStatus.purchased ||
             purchaseDetails.status == PurchaseStatus.restored) {
           inspect(purchaseDetails);
+          if (purchaseDetails.status == PurchaseStatus.purchased) {
+            late int _points;
+            if (GetPlatform.isAndroid) {
+              switch (purchaseDetails.productID) {
+                case '1100_point':
+                  _points = 1100;
+                  break;
+                case '2200_point':
+                  _points = 2200;
+                  break;
+                case '3300_point':
+                  _points = 3300;
+                  break;
+                default:
+                  _points = 0;
+                  break;
+              }
+            } else {
+              switch (purchaseDetails.productID) {
+                case '1210_point':
+                  _points = 1210;
+                  break;
+                case '2420_point':
+                  _points = 2420;
+                  break;
+                case '3630_point':
+                  _points = 3630;
+                  break;
+                default:
+                  _points = 0;
+                  break;
+              }
+            }
+            await StoreApiService.postCompletePurchase(_points);
+            getPointStatus();
+            getPastPurchases();
+            Get.showSnackbar(BottomSnackbar(text: '포인트를 구매해주셔서 감사합니다'));
+          }
         }
         if (purchaseDetails.pendingCompletePurchase) {
           await InAppPurchase.instance.completePurchase(purchaseDetails);
-          Get.showSnackbar(BottomSnackbar(text: '포인트를 구매해주셔서 감사합니다'));
         }
       },
     );
@@ -181,11 +221,17 @@ class StoreController extends GetxController {
   Future<void> fetchProducts() async {
     final bool available = await InAppPurchase.instance.isAvailable();
     if (available) {
-      Set<String> ids = <String>{
-        "1100_point",
-        "3300_point",
-        "5500_point",
-      };
+      Set<String> ids = GetPlatform.isAndroid
+          ? <String>{
+              "1100_point",
+              "2200_point",
+              "3300_point",
+            }
+          : <String>{
+              '1210_point',
+              '2420_point',
+              '3630_point',
+            };
 
       ProductDetailsResponse res = await inAppPurchase.queryProductDetails(ids);
       inspect(res);
@@ -211,7 +257,8 @@ class StoreController extends GetxController {
   }
 
   Future<void> getPastPurchases() async {
-    pastPurchaseList.value = await StoreApiService.getPastPurchases();
+    pastPurchaseList.clear();
+    pastPurchaseList.addAll(await StoreApiService.getPastPurchases());
   }
 
   Future<void> getPointStatus() async {
